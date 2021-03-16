@@ -38,9 +38,9 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['dashboard']).then();
         });
-        this.setUserData(result.user);
+        this.setUserData(result.user).then();
       }).catch((error) => {
         window.alert(error.message);
       });
@@ -50,24 +50,24 @@ export class AuthService {
   signUp(email, password): Promise<any> {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign
+        /* Call the SendVerificationMail() function when new user sign
         up and returns promise */
         this.sendVerificationMail();
-        this.setUserData(result.user);
+        this.setUserData(result.user).then();
       }).catch((error) => {
         window.alert(error.message);
       });
   }
 
-  // Send email verfificaiton when new user sign up
+  // Send email verification when new user sign up
   sendVerificationMail(): any {
     return this.afAuth.currentUser.then(u => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.router.navigate(['verify-email-address']).then();
       });
   }
 
-  // Reset Forggot password
+  // Reset Forgot password
   forgotPassword(passwordResetEmail): Promise<any> {
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
@@ -77,10 +77,10 @@ export class AuthService {
       });
   }
 
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    return (user !== null && user.emailVerified !== false);
   }
 
   // Sign in with Google
@@ -93,9 +93,9 @@ export class AuthService {
     return this.afAuth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['dashboard']).then();
         });
-        this.setUserData(result.user);
+        this.setUserData(result.user).then();
       }).catch((error) => {
         window.alert(error);
       });
@@ -122,7 +122,7 @@ export class AuthService {
   signOut(): Promise<any> {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['sign-in']).then();
     });
   }
 

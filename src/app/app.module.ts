@@ -15,6 +15,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import {RouterModule} from '@angular/router';
 import {CrudService} from './shared/crud.service';
 import {AuthService} from './shared/auth.service';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {AuthService} from './shared/auth.service';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    RouterModule
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [CrudService, AuthService],
   bootstrap: [AppComponent]
